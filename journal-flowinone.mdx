@@ -1,0 +1,23 @@
+---
+title: "FlowInOne: FlowInOne:Unifying Multimodal Generation as Image-in, Image-"
+abstract: "Unified multimodal generation via image-flow matching in a shared visual latent space"
+authors:
+  - name: "Andrew Young"
+    affiliation: "Automate Capture Research"
+publishedDate: 2026-04-11
+tags:
+  - Flow Matching
+  - Multimodal Generation
+  - Image-to-Image
+  - Unified Framework
+  - FlowInOne
+status: published
+featured: false
+pdfUrl: "https://research.automate-capture.com/papers/RR-flowinone-Young2026.pdf"
+---
+
+We built FlowInOne to tackle a fundamental bottleneck in multimodal generative modeling: the reliance on modality-specific architectures and decoders that fragment the generation pipeline. Most current systems treat sketches, text, and layout inputs as fundamentally different signals, requiring separate encoders or even distinct models to translate them into image space. This modularity limits generalization and complicates the integration of mixed inputs—say, a sketch annotated with handwritten notes and bounding boxes. FlowInOne proposes a radical simplification: instead of processing modalities separately, we unify them all into a single visual representation space where every input, regardless of origin, becomes a 2D "visual prompt" that looks like a noisy, abstract image. The core idea is that if we can project diverse inputs into this shared, denoisable latent canvas, then a single flow matching model—trained only on image-to-image translation in this space—can generate photorealistic outputs without ever needing to "know" what kind of input it started with. This is motivated by the cognitive intuition that human visual synthesis blends heterogeneous cues seamlessly; we don’t process a doodle and a caption in separate mental modules, but fuse them into a unified percept. By mimicking this fusion at the representation level, we aim for more flexible, robust, and interpretable generation.
+
+At its heart, FlowInOne uses a two-stage architecture. First, a modality-agnostic encoder—essentially a vision transformer pretrained on diverse visual-corrupted data—ingests each input type (e.g., a scanned sketch, a segmented layout, or a photo of handwritten text) and maps it into a common 2D latent grid. Crucially, this encoder isn’t trained per modality; it learns to interpret all inputs as visual textures by training on a synthetic corruption process that mimics how different signals might appear as degraded images. For example, symbolic layouts are rendered as faint wireframes, and text inputs are blurred and rasterized, so the encoder learns to extract structure without relying on linguistic or geometric priors. Once all inputs are embedded as compatible latent "noisy images," they’re fused via simple addition or attention-based merging, forming a single visual prompt. This fused representation is then refined using a flow matching model—a continuous-time generative framework that learns to denoise the latent by predicting trajectories from noise to structured output. The key insight is that because all inputs live in the same space, the flow model sees only visual patterns, not modalities. At inference, you can mix a sketch, a scribbled instruction, and a bounding box layout, and the system treats them as one evolving image, gradually denoising them into a coherent, high-fidelity output.
+
+Our experiments revealed both the power and fragility of this unified approach. On the positive side, FlowInOne demonstrated impressive cross-modal generalization—models trained on mixed inputs could handle unseen combinations at test time, like generating a scene from a child’s drawing paired with shorthand notes. We also observed smoother latent trajectories compared to diffusion-based multimodal models, likely due to the continuous flow dynamics. However, the system struggles when input modalities conflict semantically (e.g., a sketch of a cat with text saying “dog”), as the fusion mechanism lacks explicit conflict resolution. Moreover, the reliance on rasterized representations limits precision for symbolic inputs like SVGs or JSON layouts, where vector fidelity matters. Looking ahead, we’re exploring hybrid latent spaces that preserve discrete structure while remaining compatible with visual flow models. FlowInOne also fits into a broader shift toward representation-centric AI—one where the intelligence lies not in specialized modules but in how information is encoded and transformed. It aligns with recent work on unified perceptual spaces and neural fields, suggesting that the future of multimodal generation may not be in bigger models, but in smarter, more unified ways of seeing.
