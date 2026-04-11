@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Unified multimodal generation via image-flow matching in a shared visual latent space">
+        <meta name="description" content="Unified image-to-image generation via multimodal flow matching.">
       
       
         <meta name="author" content="Andrew Young">
@@ -452,10 +452,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#unified-multimodal-generation-via-image-flow-matching" class="md-nav__link">
+  <a href="#multimodal-visual-encoding" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Unified Multimodal Generation via Image-Flow Matching
+        🖌️ Multimodal Visual Encoding
       
     </span>
   </a>
@@ -463,10 +463,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-started-in-seconds" class="md-nav__link">
+  <a href="#geometry-aware-flow-matching" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Get Started in Seconds
+        🔄 Geometry-Aware Flow Matching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unified-latent-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Unified Latent Space
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-to-end-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 End-to-End Generation
       
     </span>
   </a>
@@ -731,10 +753,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#unified-multimodal-generation-via-image-flow-matching" class="md-nav__link">
+  <a href="#multimodal-visual-encoding" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Unified Multimodal Generation via Image-Flow Matching
+        🖌️ Multimodal Visual Encoding
       
     </span>
   </a>
@@ -742,10 +764,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-started-in-seconds" class="md-nav__link">
+  <a href="#geometry-aware-flow-matching" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Get Started in Seconds
+        🔄 Geometry-Aware Flow Matching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unified-latent-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Unified Latent Space
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-to-end-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 End-to-End Generation
       
     </span>
   </a>
@@ -773,31 +817,37 @@
 
 
 <h1 id="flowinone">FlowInOne<a class="headerlink" href="#flowinone" title="Permanent link">&para;</a></h1>
-<h2 id="unified-multimodal-generation-via-image-flow-matching">Unified Multimodal Generation via Image-Flow Matching<a class="headerlink" href="#unified-multimodal-generation-via-image-flow-matching" title="Permanent link">&para;</a></h2>
-<p>::: grid
-    ::: card
-        ## 🎨 Unified Visual Latent Space
-        Encode sketches, text, layouts, and symbolic instructions into a shared 2D visual latent representation—enabling seamless fusion of heterogeneous inputs without modality-specific decoders.
-    :::
-    ::: card
-        ## 🔄 Geometry-Aware Flow Matching
-        Leverage a single flow matching model that generates photorealistic images by denoising in the shared latent space, preserving spatial semantics and structural integrity.
-    :::
-    ::: card
-        ## 🧩 Semantic-Preserving Grounding
-        Automatically align diverse modalities through visual grounding, ensuring high-fidelity translation from abstract inputs to realistic outputs.
-    :::
-    ::: card
-        ## ⚙️ End-to-End Trainable
-        Train without explicit alignment losses or multi-stage pipelines—optimize directly for generation quality using flow-based objectives.
-    :::
+<p>::: { .text-center }
+<strong>Unified image-to-image generation via multimodal flow matching</strong><br />
+Seamlessly fuse sketches, text, layouts, and symbols into photorealistic images with a single flow model.
 :::</p>
-<h2 id="get-started-in-seconds">Get Started in Seconds<a class="headerlink" href="#get-started-in-seconds" title="Permanent link">&para;</a></h2>
-<p>Install FlowInOne with pip:</p>
+<p><br></p>
+<p>:::: {.grid .grid-3}
+::: {.card}</p>
+<h3 id="multimodal-visual-encoding">🖌️ Multimodal Visual Encoding<a class="headerlink" href="#multimodal-visual-encoding" title="Permanent link">&para;</a></h3>
+<p>Encode freehand sketches, handwritten text, layout primitives, and symbolic instructions into a shared 2D visual latent space—preserving semantics and spatial structure without modality-specific decoders.
+:::</p>
+<p>::: {.card}</p>
+<h3 id="geometry-aware-flow-matching">🔄 Geometry-Aware Flow Matching<a class="headerlink" href="#geometry-aware-flow-matching" title="Permanent link">&para;</a></h3>
+<p>Leverage geometry-preserving flow dynamics to generate high-fidelity images with accurate spatial alignment and structural coherence from fused visual prompts.
+:::</p>
+<p>::: {.card}</p>
+<h3 id="unified-latent-space">🧩 Unified Latent Space<a class="headerlink" href="#unified-latent-space" title="Permanent link">&para;</a></h3>
+<p>Train a single denoisable latent space that supports diverse input modalities, eliminating the need for alignment losses or separate conditioning pathways.
+:::</p>
+<p>::: {.card}</p>
+<h3 id="end-to-end-generation">🚀 End-to-End Generation<a class="headerlink" href="#end-to-end-generation" title="Permanent link">&para;</a></h3>
+<p>Generate photorealistic target images directly from multimodal visual prompts—no cascaded models, no post-processing, no compromise on quality.
+:::
+::::</p>
+<p><br></p>
+<p>::: {.grid .grid-2}
 <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>flowinone
 </code></pre></div>
-<p>{ .md-button }</p>
-<p><a class="md-button md-button--primary" href="getting-started.md">Get Started</a></p>
+:::
+::: { .text-center }
+<a class="md-button md-button--primary" href="getting-started.md">Get Started →</a>
+:::</p>
 
 
 

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Unified multimodal generation via image-flow matching in a shared visual latent space">
+        <meta name="description" content="Unified image-to-image generation via multimodal flow matching.">
       
       
         <meta name="author" content="Andrew Young">
@@ -785,10 +785,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#decode_dxt1data-bytes-width-int-height-int-bytearray" class="md-nav__link">
+  <a href="#decode_dxt1data-bytes-w-int-h-int-bytearray" class="md-nav__link">
     <span class="md-ellipsis">
       
-        decode_dxt1(data: bytes, width: int, height: int) -&gt; bytearray
+        decode_dxt1(data: bytes, w: int, h: int) -&gt; bytearray
       
     </span>
   </a>
@@ -1596,10 +1596,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#decode_dxt1data-bytes-width-int-height-int-bytearray" class="md-nav__link">
+  <a href="#decode_dxt1data-bytes-w-int-h-int-bytearray" class="md-nav__link">
     <span class="md-ellipsis">
       
-        decode_dxt1(data: bytes, width: int, height: int) -&gt; bytearray
+        decode_dxt1(data: bytes, w: int, h: int) -&gt; bytearray
       
     </span>
   </a>
@@ -2177,25 +2177,25 @@
 
 
 <h1 id="flowinone-api-reference">FlowInOne API Reference<a class="headerlink" href="#flowinone-api-reference" title="Permanent link">&para;</a></h1>
-<p>This document provides a reference for the actual API components available in the specified modules of the Pillow (PIL) library. These components are part of the underlying image processing stack used within FlowInOne, particularly for handling diverse image formats and data structures required for multimodal visual representation learning.</p>
+<p>This document provides a reference for the actual API functions and classes available in the specified modules of the Pillow (PIL) library, as used in the context of FlowInOne. Only documented entities are included—no additional functions or classes have been invented.</p>
 <hr />
 <h2 id="venvlibpython313site-packagespilavifimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/AvifImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilavifimagepluginpy" title="Permanent link">&para;</a></h2>
 <h3 id="get_codec_versioncodec_name-str-str-none"><code>get_codec_version(codec_name: str) -&gt; str | None</code><a class="headerlink" href="#get_codec_versioncodec_name-str-str-none" title="Permanent link">&para;</a></h3>
-<p>Returns the version string of the specified AVIF codec if available, otherwise <code>None</code>. Used to check codec support.</p>
+<p>Returns the version string of the specified AVIF codec if available, or <code>None</code> otherwise. Used to check codec support.</p>
 <p><strong>Example:</strong>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">version</span> <span class="o">=</span> <span class="n">get_codec_version</span><span class="p">(</span><span class="s2">&quot;libavif&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>  <span class="c1"># e.g., &quot;0.9.1&quot;</span>
 </code></pre></div></p>
 <h3 id="class-avifimagefileimagefileimagefile"><code>class AvifImageFile(ImageFile.ImageFile)</code><a class="headerlink" href="#class-avifimagefileimagefileimagefile" title="Permanent link">&para;</a></h3>
-<p>Represents an AVIF image file that can be opened and processed using PIL.</p>
+<p>Represents an AVIF image file. Inherits from <code>ImageFile.ImageFile</code> and supports standard PIL image operations.</p>
 <h4 id="seekself-frame-int-none"><code>seek(self, frame: int) -&gt; None</code><a class="headerlink" href="#seekself-frame-int-none" title="Permanent link">&para;</a></h4>
-<p>Moves to the given frame number in a multi-frame AVIF file.</p>
+<p>Moves to the given frame (page) in a multi-frame AVIF file.</p>
 <p><strong>Example:</strong>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">image</span> <span class="o">=</span> <span class="n">AvifImageFile</span><span class="p">(</span><span class="s2">&quot;animation.avif&quot;</span><span class="p">)</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">image</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Go to second frame</span>
 </code></pre></div></p>
 <h4 id="loadself-imagecorepixelaccess-none"><code>load(self) -&gt; Image.core.PixelAccess | None</code><a class="headerlink" href="#loadself-imagecorepixelaccess-none" title="Permanent link">&para;</a></h4>
-<p>Loads pixel data from the current frame into memory.</p>
+<p>Decodes and loads pixel data from the current frame.</p>
 <p><strong>Example:</strong>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">pixels</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">pixels</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># Access first pixel</span>
@@ -2203,13 +2203,13 @@
 <hr />
 <h2 id="venvlibpython313site-packagespilbdffontfilepy"><code>.venv/lib/python3.13/site-packages/PIL/BdfFontFile.py</code><a class="headerlink" href="#venvlibpython313site-packagespilbdffontfilepy" title="Permanent link">&para;</a></h2>
 <h3 id="bdf_chardata-bytes-tupleint-int-int-int-bytes"><code>bdf_char(data: bytes) -&gt; tuple[int, int, int, int, bytes]</code><a class="headerlink" href="#bdf_chardata-bytes-tupleint-int-int-int-bytes" title="Permanent link">&para;</a></h3>
-<p>Parses a single BDF character definition from raw byte data and returns its metrics and bitmap.</p>
+<p>Parses a single BDF character definition from raw byte data and returns its dimensions, offset, and bitmap.</p>
 <p><strong>Example:</strong>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">char_data</span> <span class="o">=</span> <span class="n">bdf_char</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;STARTCHAR space...ENDCHAR&quot;</span><span class="p">)</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">char_data</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">char_data</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;STARTCHAR charname...&quot;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">bdf_char</span><span class="p">(</span><span class="n">char_data</span><span class="p">)</span>
 </code></pre></div></p>
 <h3 id="class-bdffontfilefontfilefontfile"><code>class BdfFontFile(FontFile.FontFile)</code><a class="headerlink" href="#class-bdffontfilefontfilefontfile" title="Permanent link">&para;</a></h3>
-<p>Loads and represents a BDF (Bitmap Distribution Format) font for use in PIL.</p>
+<p>Parses and represents a BDF (Bitmap Distribution Format) font file.</p>
 <p><strong>Example:</strong>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;font.bdf&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">font</span> <span class="o">=</span> <span class="n">BdfFontFile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -2217,30 +2217,30 @@
 <hr />
 <h2 id="venvlibpython313site-packagespilblpimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/BlpImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilblpimagepluginpy" title="Permanent link">&para;</a></h2>
 <h3 id="class-formatintenum"><code>class Format(IntEnum)</code><a class="headerlink" href="#class-formatintenum" title="Permanent link">&para;</a></h3>
-<p>Enumeration indicating the BLP file format version (BLP1 or BLP2).</p>
+<p>Enumeration of BLP container formats (e.g., BLP1, BLP2).</p>
 <h3 id="class-encodingintenum"><code>class Encoding(IntEnum)</code><a class="headerlink" href="#class-encodingintenum" title="Permanent link">&para;</a></h3>
-<p>Specifies the pixel encoding type used in BLP files (e.g., JPEG, DXT).</p>
+<p>Enumeration of texture encodings used in BLP files (e.g., DXT1, DXT3).</p>
 <h3 id="class-alphaencodingintenum"><code>class AlphaEncoding(IntEnum)</code><a class="headerlink" href="#class-alphaencodingintenum" title="Permanent link">&para;</a></h3>
-<p>Indicates how alpha channel data is encoded in the BLP image.</p>
+<p>Enumeration of alpha channel encoding methods in BLP.</p>
 <h3 id="unpack_565i-int-tupleint-int-int"><code>unpack_565(i: int) -&gt; tuple[int, int, int]</code><a class="headerlink" href="#unpack_565i-int-tupleint-int-int" title="Permanent link">&para;</a></h3>
-<p>Decodes a 16-bit RGB565 value into (R, G, B) components.</p>
+<p>Converts a 16-bit RGB565 value into an <code>(r, g, b)</code> tuple.</p>
 <p><strong>Example:</strong>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">unpack_565</span><span class="p">(</span><span class="mb">0b1111100000011111</span><span class="p">)</span>
 </code></pre></div></p>
-<h3 id="decode_dxt1data-bytes-width-int-height-int-bytearray"><code>decode_dxt1(data: bytes, width: int, height: int) -&gt; bytearray</code><a class="headerlink" href="#decode_dxt1data-bytes-width-int-height-int-bytearray" title="Permanent link">&para;</a></h3>
-<p>Decodes DXT1-compressed texture data into raw pixel bytes.</p>
+<h3 id="decode_dxt1data-bytes-w-int-h-int-bytearray"><code>decode_dxt1(data: bytes, w: int, h: int) -&gt; bytearray</code><a class="headerlink" href="#decode_dxt1data-bytes-w-int-h-int-bytearray" title="Permanent link">&para;</a></h3>
+<p>Decodes DXT1-compressed texture data into raw RGB bytes.</p>
 <p><strong>Example:</strong>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">pixels</span> <span class="o">=</span> <span class="n">decode_dxt1</span><span class="p">(</span><span class="n">compressed_data</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">rgb_data</span> <span class="o">=</span> <span class="n">decode_dxt1</span><span class="p">(</span><span class="n">compressed_bytes</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
 </code></pre></div></p>
 <h3 id="decode_dxt3data-bytes-tuplebytearray-bytearray-bytearray-bytearray"><code>decode_dxt3(data: bytes) -&gt; tuple[bytearray, bytearray, bytearray, bytearray]</code><a class="headerlink" href="#decode_dxt3data-bytes-tuplebytearray-bytearray-bytearray-bytearray" title="Permanent link">&para;</a></h3>
 <p>Decodes DXT3-compressed data into four component bytearrays (RGBA).</p>
 <p><strong>Example:</strong>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">decode_dxt3</span><span class="p">(</span><span class="n">dxt3_data</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">decode_dxt3</span><span class="p">(</span><span class="n">dxt3_bytes</span><span class="p">)</span>
 </code></pre></div></p>
 <hr />
 <h2 id="venvlibpython313site-packagespilbmpimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/BmpImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilbmpimagepluginpy" title="Permanent link">&para;</a></h2>
 <h3 id="class-bmpimagefileimagefileimagefile"><code>class BmpImageFile(ImageFile.ImageFile)</code><a class="headerlink" href="#class-bmpimagefileimagefileimagefile" title="Permanent link">&para;</a></h3>
-<p>Handles BMP (Bitmap) image files for reading within PIL.</p>
+<p>Implements support for BMP image files. Handles loading and parsing of BMP headers and pixel data.</p>
 <p><strong>Example:</strong>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">image</span> <span class="o">=</span> <span class="n">BmpImageFile</span><span class="p">(</span><span class="s2">&quot;image.bmp&quot;</span><span class="p">)</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
@@ -2248,117 +2248,117 @@
 <hr />
 <h2 id="venvlibpython313site-packagespilbufrstubimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/BufrStubImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilbufrstubimagepluginpy" title="Permanent link">&para;</a></h2>
 <h3 id="register_handlerhandler-imagefilestubhandler-none-none"><code>register_handler(handler: ImageFile.StubHandler | None) -&gt; None</code><a class="headerlink" href="#register_handlerhandler-imagefilestubhandler-none-none" title="Permanent link">&para;</a></h3>
-<p>Registers or unregisters a handler for BUFR stub images (used for format registration).</p>
+<p>Registers or unregisters a handler for BUFR file stubs (used for lazy loading).</p>
 <p><strong>Example:</strong>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">register_handler</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># Unregister current handler</span>
 </code></pre></div></p>
 <h3 id="class-bufrstubimagefileimagefilestubimagefile"><code>class BufrStubImageFile(ImageFile.StubImageFile)</code><a class="headerlink" href="#class-bufrstubimagefileimagefilestubimagefile" title="Permanent link">&para;</a></h3>
-<p>Placeholder class for BUFR (Binary Universal Form for the Representation of meteorological data) images.</p>
+<p>Stub class for BUFR meteorological data files; defers actual decoding until load time.</p>
 <p><strong>Example:</strong>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">stub</span> <span class="o">=</span> <span class="n">BufrStubImageFile</span><span class="p">(</span><span class="s2">&quot;data.bufr&quot;</span><span class="p">)</span>
 </code></pre></div></p>
 <hr />
 <h2 id="venvlibpython313site-packagespilcontaineriopy"><code>.venv/lib/python3.13/site-packages/PIL/ContainerIO.py</code><a class="headerlink" href="#venvlibpython313site-packagespilcontaineriopy" title="Permanent link">&para;</a></h2>
 <h3 id="class-containerioioanystr"><code>class ContainerIO(IO[AnyStr])</code><a class="headerlink" href="#class-containerioioanystr" title="Permanent link">&para;</a></h3>
-<p>A file-like object that wraps byte or string containers for sequential I/O operations.</p>
+<p>A file-like wrapper around in-memory data (e.g., bytes or strings), allowing it to be used as a stream.</p>
 <h4 id="isattyself-bool"><code>isatty(self) -&gt; bool</code><a class="headerlink" href="#isattyself-bool" title="Permanent link">&para;</a></h4>
-<p>Returns <code>True</code> if the stream is interactive (TTY), always <code>False</code> for ContainerIO.</p>
+<p>Returns <code>False</code>. Indicates this is not a TTY device.</p>
 <h4 id="seekableself-bool"><code>seekable(self) -&gt; bool</code><a class="headerlink" href="#seekableself-bool" title="Permanent link">&para;</a></h4>
-<p>Returns <code>True</code> if the stream supports random access.</p>
+<p>Returns <code>True</code> if the underlying buffer supports seeking.</p>
 <h4 id="seekself-offset-int-mode-int-ioseek_set-int"><code>seek(self, offset: int, mode: int = io.SEEK_SET) -&gt; int</code><a class="headerlink" href="#seekself-offset-int-mode-int-ioseek_set-int" title="Permanent link">&para;</a></h4>
-<p>Moves the file pointer to the specified position.</p>
+<p>Moves the read/write pointer within the buffer.</p>
 <p><strong>Example:</strong>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">container</span> <span class="o">=</span> <span class="n">ContainerIO</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">container</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">io_obj</span> <span class="o">=</span> <span class="n">ContainerIO</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">io_obj</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 </code></pre></div></p>
 <h4 id="tellself-int"><code>tell(self) -&gt; int</code><a class="headerlink" href="#tellself-int" title="Permanent link">&para;</a></h4>
-<p>Returns the current position of the file pointer.</p>
+<p>Returns current position in the stream.</p>
 <h4 id="readableself-bool"><code>readable(self) -&gt; bool</code><a class="headerlink" href="#readableself-bool" title="Permanent link">&para;</a></h4>
 <p>Returns <code>True</code> if the stream can be read.</p>
 <h4 id="readself-n-int-1-anystr"><code>read(self, n: int = -1) -&gt; AnyStr</code><a class="headerlink" href="#readself-n-int-1-anystr" title="Permanent link">&para;</a></h4>
-<p>Reads up to <code>n</code> bytes; if <code>n</code> is -1, reads all remaining data.</p>
+<p>Reads up to <code>n</code> bytes from the stream.</p>
 <h4 id="readlineself-n-int-1-anystr"><code>readline(self, n: int = -1) -&gt; AnyStr</code><a class="headerlink" href="#readlineself-n-int-1-anystr" title="Permanent link">&para;</a></h4>
-<p>Reads a single line, optionally limited to <code>n</code> bytes.</p>
+<p>Reads a single line from the stream.</p>
 <h4 id="readlinesself-n-int-none-1-listanystr"><code>readlines(self, n: int | None = -1) -&gt; list[AnyStr]</code><a class="headerlink" href="#readlinesself-n-int-none-1-listanystr" title="Permanent link">&para;</a></h4>
 <p>Reads all lines into a list.</p>
 <h4 id="writableself-bool"><code>writable(self) -&gt; bool</code><a class="headerlink" href="#writableself-bool" title="Permanent link">&para;</a></h4>
 <p>Returns <code>True</code> if the stream supports writing.</p>
 <h4 id="writeself-b-anystr-noreturn"><code>write(self, b: AnyStr) -&gt; NoReturn</code><a class="headerlink" href="#writeself-b-anystr-noreturn" title="Permanent link">&para;</a></h4>
-<p>Raises an error — writing is not supported.</p>
+<p>Raises an error—writing is not supported.</p>
 <h4 id="writelinesself-lines-iterableanystr-noreturn"><code>writelines(self, lines: Iterable[AnyStr]) -&gt; NoReturn</code><a class="headerlink" href="#writelinesself-lines-iterableanystr-noreturn" title="Permanent link">&para;</a></h4>
-<p>Raises an error — writelines is not supported.</p>
+<p>Raises an error—writing is not supported.</p>
 <h4 id="truncateself-size-int-none-none-int"><code>truncate(self, size: int | None = None) -&gt; int</code><a class="headerlink" href="#truncateself-size-int-none-none-int" title="Permanent link">&para;</a></h4>
-<p>Raises an error — truncation is not supported.</p>
+<p>Truncates the underlying buffer to the given size.</p>
 <h4 id="filenoself-int"><code>fileno(self) -&gt; int</code><a class="headerlink" href="#filenoself-int" title="Permanent link">&para;</a></h4>
-<p>Raises <code>OSError</code> — no underlying file descriptor.</p>
+<p>Raises <code>OSError</code>—no file descriptor is available.</p>
 <h4 id="flushself-none"><code>flush(self) -&gt; None</code><a class="headerlink" href="#flushself-none" title="Permanent link">&para;</a></h4>
-<p>No-op; included for file interface compatibility.</p>
+<p>No-op. Included for file interface compatibility.</p>
 <hr />
 <h2 id="venvlibpython313site-packagespilcurimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/CurImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilcurimagepluginpy" title="Permanent link">&para;</a></h2>
 <h3 id="class-curimagefilebmpimagepluginbmpimagefile"><code>class CurImageFile(BmpImagePlugin.BmpImageFile)</code><a class="headerlink" href="#class-curimagefilebmpimagepluginbmpimagefile" title="Permanent link">&para;</a></h3>
-<p>Represents a Windows CUR (cursor) image file, which includes hotspot metadata.</p>
+<p>Implements support for Windows <code>.cur</code> cursor files, including hotspot information.</p>
 <p><strong>Example:</strong>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">cursor</span> <span class="o">=</span> <span class="n">CurImageFile</span><span class="p">(</span><span class="s2">&quot;cursor.cur&quot;</span><span class="p">)</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">cursor</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">cursor</span> <span class="o">=</span> <span class="n">CurImageFile</span><span class="p">(</span><span class="s2">&quot;icon.cur&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">cursor</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 </code></pre></div></p>
 <hr />
 <h2 id="venvlibpython313site-packagespildcximagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/DcxImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespildcximagepluginpy" title="Permanent link">&para;</a></h2>
 <h3 id="class-dcximagefilepcximagefile"><code>class DcxImageFile(PcxImageFile)</code><a class="headerlink" href="#class-dcximagefilepcximagefile" title="Permanent link">&para;</a></h3>
 <p>Handles DCX (multi-page PCX) image files.</p>
 <h4 id="seekself-frame-int-none_1"><code>seek(self, frame: int) -&gt; None</code><a class="headerlink" href="#seekself-frame-int-none_1" title="Permanent link">&para;</a></h4>
-<p>Selects the given frame (page) in the DCX file.</p>
+<p>Selects the specified sub-image (frame) in the DCX file.</p>
 <p><strong>Example:</strong>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">dcx</span> <span class="o">=</span> <span class="n">DcxImageFile</span><span class="p">(</span><span class="s2">&quot;document.dcx&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">dcx</span> <span class="o">=</span> <span class="n">DcxImageFile</span><span class="p">(</span><span class="s2">&quot;pages.dcx&quot;</span><span class="p">)</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">dcx</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Load third page</span>
 </code></pre></div></p>
 <h4 id="tellself-int_1"><code>tell(self) -&gt; int</code><a class="headerlink" href="#tellself-int_1" title="Permanent link">&para;</a></h4>
 <p>Returns the index of the current frame.</p>
 <p><strong>Example:</strong>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">current_page</span> <span class="o">=</span> <span class="n">dcx</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">index</span> <span class="o">=</span> <span class="n">dcx</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
 </code></pre></div></p>
 <hr />
 <h2 id="venvlibpython313site-packagespilddsimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/DdsImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilddsimagepluginpy" title="Permanent link">&para;</a></h2>
 <h3 id="class-ddsdintflag"><code>class DDSD(IntFlag)</code><a class="headerlink" href="#class-ddsdintflag" title="Permanent link">&para;</a></h3>
-<p>Flags describing surface capabilities in DDS files (e.g., texture, cube map).</p>
+<p>Flags indicating which fields are present in a DDS header (e.g., width, height, pitch).</p>
 <h3 id="class-ddscapsintflag"><code>class DDSCAPS(IntFlag)</code><a class="headerlink" href="#class-ddscapsintflag" title="Permanent link">&para;</a></h3>
-<p>Legacy DirectDraw surface capabilities.</p>
+<p>Legacy DirectDraw surface capabilities flags.</p>
 <h3 id="class-ddscaps2intflag"><code>class DDSCAPS2(IntFlag)</code><a class="headerlink" href="#class-ddscaps2intflag" title="Permanent link">&para;</a></h3>
-<p>Extended DirectDraw surface capabilities (e.g., volume, cube maps).</p>
+<p>Extended surface capabilities (e.g., texture, cube map).</p>
 <h3 id="class-ddpfintflag"><code>class DDPF(IntFlag)</code><a class="headerlink" href="#class-ddpfintflag" title="Permanent link">&para;</a></h3>
-<p>Describes pixel format flags in DDS headers.</p>
+<p>Pixel format flags (e.g., RGB, YUV, alpha).</p>
 <h3 id="class-dxgi_formatintenum"><code>class DXGI_FORMAT(IntEnum)</code><a class="headerlink" href="#class-dxgi_formatintenum" title="Permanent link">&para;</a></h3>
-<p>Enumerates DXGI (DirectX Graphics Infrastructure) texture formats used in DDS.</p>
+<p>Enumeration of DXGI texture formats used in DDS files.</p>
 <hr />
 <h2 id="venvlibpython313site-packagespilepsimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/EpsImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilepsimagepluginpy" title="Permanent link">&para;</a></h2>
 <h3 id="has_ghostscript-bool"><code>has_ghostscript() -&gt; bool</code><a class="headerlink" href="#has_ghostscript-bool" title="Permanent link">&para;</a></h3>
 <p>Checks whether Ghostscript is available on the system for EPS rendering.</p>
 <p><strong>Example:</strong>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">if</span> <span class="n">has_ghostscript</span><span class="p">():</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EPS support is enabled&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ghostscript is available&quot;</span><span class="p">)</span>
 </code></pre></div></p>
 <h3 id="ghostscript">`Ghostscript(<a class="headerlink" href="#ghostscript" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code>command: str,
-args: list[str],
-env: dict[str, str] | None = None
+<div class="language-text highlight"><pre><span></span><code>command: list[str],
+stdin: bytes | None = None,
 </code></pre></div>
-<p>) -&gt; int`
-Executes a Ghostscript command with the given arguments and environment.</p>
+<p>) -&gt; tuple[int, bytes, bytes]`
+Executes a Ghostscript command and returns the exit code, stdout, and stderr.</p>
 <p><strong>Example:</strong>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">return_code</span> <span class="o">=</span> <span class="n">Ghostscript</span><span class="p">(</span><span class="s2">&quot;gs&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;-sDEVICE=png16m&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;out.png&quot;</span><span class="p">,</span> <span class="s2">&quot;input.eps&quot;</span><span class="p">])</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">return_code</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">Ghostscript</span><span class="p">([</span><span class="s2">&quot;gs&quot;</span><span class="p">,</span> <span class="s2">&quot;-version&quot;</span><span class="p">])</span>
 </code></pre></div></p>
 <hr />
 <h2 id="venvlibpython313site-packagespilexiftagspy"><code>.venv/lib/python3.13/site-packages/PIL/ExifTags.py</code><a class="headerlink" href="#venvlibpython313site-packagespilexiftagspy" title="Permanent link">&para;</a></h2>
 <h3 id="class-baseintenum"><code>class Base(IntEnum)</code><a class="headerlink" href="#class-baseintenum" title="Permanent link">&para;</a></h3>
-<p>Base class for EXIF tag enumerations; not instantiated directly.</p>
+<p>Base class for EXIF tag enumerations. Not used directly.</p>
 <hr />
 <h2 id="venvlibpython313site-packagespilfitsimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/FitsImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilfitsimagepluginpy" title="Permanent link">&para;</a></h2>
 <h3 id="class-fitsimagefileimagefileimagefile"><code>class FitsImageFile(ImageFile.ImageFile)</code><a class="headerlink" href="#class-fitsimagefileimagefileimagefile" title="Permanent link">&para;</a></h3>
-<p>Handles FITS (Flexible Image Transport System) astronomical image files.</p>
+<p>Implements support for FITS (Flexible Image Transport System) astronomical image files.</p>
 <p><strong>Example:</strong>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">fits_image</span> <span class="o">=</span> <span class="n">FitsImageFile</span><span class="p">(</span><span class="s2">&quot;sky.fits&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">fits_image</span> <span class="o">=</span> <span class="n">FitsImageFile</span><span class="p">(</span><span class="s2">&quot;image.fits&quot;</span><span class="p">)</span>
 </code></pre></div></p>
 <h3 id="class-fitsgzipdecoderimagefilepydecoder"><code>class FitsGzipDecoder(ImageFile.PyDecoder)</code><a class="headerlink" href="#class-fitsgzipdecoderimagefilepydecoder" title="Permanent link">&para;</a></h3>
 <h4 id="decodeself-buffer-bytes-imagesupportsarrayinterface-tupleint-int"><code>decode(self, buffer: bytes | Image.SupportsArrayInterface) -&gt; tuple[int, int]</code><a class="headerlink" href="#decodeself-buffer-bytes-imagesupportsarrayinterface-tupleint-int" title="Permanent link">&para;</a></h4>
+<p>Decodes a block of gzipped</p>
 
 
 

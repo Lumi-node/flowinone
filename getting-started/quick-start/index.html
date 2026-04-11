@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Unified multimodal generation via image-flow matching in a shared visual latent space">
+        <meta name="description" content="Unified image-to-image generation via multimodal flow matching.">
       
       
         <meta name="author" content="Andrew Young">
@@ -577,10 +577,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-concept" class="md-nav__link">
+  <a href="#core-concepts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core Concept
+        Core Concepts
       
     </span>
   </a>
@@ -588,32 +588,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-1-load-and-decode-a-multi-frame-dcx-sketch-file" class="md-nav__link">
+  <a href="#usage-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example 1: Load and Decode a Multi-frame DCX Sketch File
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-load-and-decode-a-dds-texture-layout-primitive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Load and Decode a DDS Texture (Layout Primitive)
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#example-2-parse-handwritten-text-from-a-bmp-with-bdffontfile" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#example-2-process-handwritten-text-from-bmp-with-bdffontfile" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example 2: Parse Handwritten Text from a BMP with BdfFontFile
+        Example 2: Process Handwritten Text from BMP with BdfFontFile
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#example-3-process-layout-primitives-from-eps-instructions" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#example-3-handle-multi-frame-sketch-input-via-dcx" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example 3: Process Layout Primitives from EPS Instructions
+        Example 3: Handle Multi-frame Sketch Input via DCX
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Integration Points
       
     </span>
   </a>
@@ -793,10 +821,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-concept" class="md-nav__link">
+  <a href="#core-concepts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core Concept
+        Core Concepts
       
     </span>
   </a>
@@ -804,32 +832,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-1-load-and-decode-a-multi-frame-dcx-sketch-file" class="md-nav__link">
+  <a href="#usage-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example 1: Load and Decode a Multi-frame DCX Sketch File
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-load-and-decode-a-dds-texture-layout-primitive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Load and Decode a DDS Texture (Layout Primitive)
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#example-2-parse-handwritten-text-from-a-bmp-with-bdffontfile" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#example-2-process-handwritten-text-from-bmp-with-bdffontfile" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example 2: Parse Handwritten Text from a BMP with BdfFontFile
+        Example 2: Process Handwritten Text from BMP with BdfFontFile
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#example-3-process-layout-primitives-from-eps-instructions" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#example-3-handle-multi-frame-sketch-input-via-dcx" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example 3: Process Layout Primitives from EPS Instructions
+        Example 3: Handle Multi-frame Sketch Input via DCX
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Integration Points
       
     </span>
   </a>
@@ -868,110 +924,146 @@
 
 
 <h1 id="quick-start-guide-for-flowinone">Quick Start Guide for FlowInOne<a class="headerlink" href="#quick-start-guide-for-flowinone" title="Permanent link">&para;</a></h1>
-<p>FlowInOne is a unified visual representation learning system designed to encode heterogeneous multimodal inputs—such as freehand sketches, handwritten text, layout primitives, and symbolic instructions—into a shared, denoisable 2D visual latent space. This guide demonstrates how to use the core PIL-based modules within the <code>flowinone</code> package to preprocess and integrate multimodal visual data for downstream flow matching tasks.</p>
+<p>FlowInOne is a unified visual representation learning system designed to encode heterogeneous multimodal inputs—such as freehand sketches, handwritten text, layout primitives, and symbolic instructions—into a shared, denoisable 2D visual latent space. This guide demonstrates how to use the core PIL-based components within the <code>flowinone</code> package to preprocess and handle multimodal visual data for downstream flow matching and image generation tasks.</p>
 <blockquote>
-<p><strong>Note</strong>: This guide uses <strong>only real functions and classes</strong> from the provided API list. No synthetic or invented components are used.</p>
+<p><strong>Note</strong>: This guide uses <strong>only real functions and classes</strong> from the listed modules. No hypothetical APIs are used.</p>
 </blockquote>
 <hr />
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>flowinone
+<p>Ensure you have the required environment:</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># On Windows: .venv\Scripts\activate</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>pip<span class="w"> </span>install<span class="w"> </span>pillow
 </code></pre></div>
-<p>Ensure Python 3.13+ and Pillow (PIL Fork) are installed:</p>
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pillow
+<p>The <code>flowinone</code> package leverages Pillow's image plugins and utilities for low-level multimodal visual data handling.</p>
+<hr />
+<h2 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Visual Latent Encoding</strong>: Convert all modalities (sketches, text, layouts) into image-like tensors.</li>
+<li><strong>Unified Input Representation</strong>: Use PIL image types and codecs to standardize input formats.</li>
+<li><strong>Geometry-Aware Preprocessing</strong>: Leverage format-specific decoders to preserve spatial structure.</li>
+</ul>
+<hr />
+<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-load-and-decode-a-dds-texture-layout-primitive">Example 1: Load and Decode a DDS Texture (Layout Primitive)<a class="headerlink" href="#example-1-load-and-decode-a-dds-texture-layout-primitive" title="Permanent link">&para;</a></h3>
+<p>Use <code>DdsImagePlugin</code> to decode a compressed layout or primitive map (e.g., from a UI mockup or game asset).</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL.DdsImagePlugin</span><span class="w"> </span><span class="kn">import</span> <span class="n">DDSD</span><span class="p">,</span> <span class="n">DXGI_FORMAT</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Open a DDS file containing layout primitives</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">with</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;layout_primitive.dds&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">img</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="c1"># Access internal flags to verify format</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;dxgi_format&quot;</span> <span class="ow">in</span> <span class="n">img</span><span class="o">.</span><span class="n">info</span><span class="p">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="n">fmt</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;dxgi_format&quot;</span><span class="p">]</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="n">DXGI_FORMAT</span><span class="o">.</span><span class="n">DXGI_FORMAT_DXT1</span><span class="p">:</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Compressed layout using DXT1&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="c1"># Convert to standard RGB for encoding</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="n">layout_rgb</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="n">layout_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">layout_rgb</span><span class="p">)</span>  <span class="c1"># Shape: (H, W, 3)</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Layout primitive loaded: </span><span class="si">{</span><span class="n">layout_array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
+<blockquote>
+<p>✅ Use case: Encoding UI wireframes or geometric layouts into visual prompts.</p>
+</blockquote>
 <hr />
-<h2 id="core-concept">Core Concept<a class="headerlink" href="#core-concept" title="Permanent link">&para;</a></h2>
-<p>The goal of FlowInOne is to project diverse inputs into a <strong>shared visual latent space</strong> using semantic-preserving visual grounding and geometry-aware encoding. The system leverages low-level image parsing and container handling from PIL plugins to unify input modalities before feeding them into a flow matching generator.</p>
-<p>Below are practical examples using actual APIs from the installed modules.</p>
-<hr />
-<h2 id="example-1-load-and-decode-a-multi-frame-dcx-sketch-file">Example 1: Load and Decode a Multi-frame DCX Sketch File<a class="headerlink" href="#example-1-load-and-decode-a-multi-frame-dcx-sketch-file" title="Permanent link">&para;</a></h2>
-<p>Use <code>DcxImageFile</code> to process a sequence of hand-drawn sketch frames (e.g., from a digital sketchpad).</p>
+<h3 id="example-2-process-handwritten-text-from-bmp-with-bdffontfile">Example 2: Process Handwritten Text from BMP with BdfFontFile<a class="headerlink" href="#example-2-process-handwritten-text-from-bmp-with-bdffontfile" title="Permanent link">&para;</a></h3>
+<p>Simulate grounding handwritten text using a bitmap font definition and a scanned text image.</p>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.venv.lib.python3.</span><span class="mf">13.</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">.</span><span class="n">PIL</span><span class="o">.</span><span class="n">DcxImagePlugin</span> <span class="kn">import</span><span class="w"> </span><span class="nn">DcxImageFile</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Open a DCX file containing multiple sketch frames</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sketches.dcx&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">dcx_image</span> <span class="o">=</span> <span class="n">DcxImageFile</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of frames: </span><span class="si">{</span><span class="n">dcx_image</span><span class="o">.</span><span class="n">n_frames</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="c1"># Iterate through each sketch frame</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dcx_image</span><span class="o">.</span><span class="n">n_frames</span><span class="p">):</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="n">dcx_image</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="n">frame</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">frombytes</span><span class="p">(</span><span class="n">dcx_image</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="n">dcx_image</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dcx_image</span><span class="o">.</span><span class="n">data</span><span class="p">())</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="n">frame</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sketch_frame_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL.BmpImagePlugin</span><span class="w"> </span><span class="kn">import</span> <span class="n">BmpImageFile</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL.BdfFontFile</span><span class="w"> </span><span class="kn">import</span> <span class="n">BdfFontFile</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL.FontFile</span><span class="w"> </span><span class="kn">import</span> <span class="n">puti16</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># Load handwritten text image</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">with</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;handwritten_note.bmp&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">img</span><span class="p">:</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">BmpImageFile</span><span class="p">)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">)</span>  <span class="c1"># Grayscale for text</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># Optional: Use BDF font to simulate symbolic-to-visual alignment</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sample_font.bdf&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">bdf_font</span> <span class="o">=</span> <span class="n">BdfFontFile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">bdf_font</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>  <span class="c1"># Rasterize glyphs</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1"># Embed text structure into visual canvas</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="n">font_image</span> <span class="o">=</span> <span class="n">bdf_font</span><span class="o">.</span><span class="n">to_imagefont</span><span class="p">()</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="c1"># Note: `to_imagefont()` returns ImageFont, usable in rendering symbolic text</span>
 </code></pre></div>
 <blockquote>
-<p>✅ <strong>Use Case</strong>: Temporal sketch sequences encoded as DCX are unpacked into individual visual tokens for latent fusion.</p>
+<p>✅ Use case: Grounding symbolic instructions (e.g., labels) into visual space with typographic fidelity.</p>
 </blockquote>
 <hr />
-<h2 id="example-2-parse-handwritten-text-from-a-bmp-with-bdffontfile">Example 2: Parse Handwritten Text from a BMP with BdfFontFile<a class="headerlink" href="#example-2-parse-handwritten-text-from-a-bmp-with-bdffontfile" title="Permanent link">&para;</a></h2>
-<p>Extract and interpret handwritten text using bitmap font alignment via <code>BdfFontFile</code>.</p>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.venv.lib.python3.</span><span class="mf">13.</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">.</span><span class="n">PIL</span><span class="o">.</span><span class="n">BdfFontFile</span> <span class="kn">import</span><span class="w"> </span><span class="nn">BdfFontFile</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.venv.lib.python3.</span><span class="mf">13.</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">.</span><span class="n">PIL</span><span class="o">.</span><span class="n">BmpImagePlugin</span> <span class="kn">import</span><span class="w"> </span><span class="nn">BmpImageFile</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># Load a BMP containing handwritten characters</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;handwritten_text.bmp&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">bmp_fp</span><span class="p">:</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">bmp_image</span> <span class="o">=</span> <span class="n">BmpImageFile</span><span class="p">(</span><span class="n">bmp_fp</span><span class="p">)</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">frombytes</span><span class="p">(</span><span class="n">bmp_image</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="n">bmp_image</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">bmp_image</span><span class="o">.</span><span class="n">tobytes</span><span class="p">())</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># Assume we have a corresponding BDF font definition for normalization</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;handwriting_font.bdf&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">bdf_fp</span><span class="p">:</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">bdf_font</span> <span class="o">=</span> <span class="n">BdfFontFile</span><span class="p">(</span><span class="n">bdf_fp</span><span class="p">)</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="c1"># Compile font for rendering reference grid (for geometric alignment)</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">bdf_font</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="n">reference_font</span> <span class="o">=</span> <span class="n">bdf_font</span><span class="o">.</span><span class="n">to_imagefont</span><span class="p">()</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="c1"># Save aligned visual representation</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;normalized_handwriting.png&quot;</span><span class="p">)</span>
+<h3 id="example-3-handle-multi-frame-sketch-input-via-dcx">Example 3: Handle Multi-frame Sketch Input via DCX<a class="headerlink" href="#example-3-handle-multi-frame-sketch-input-via-dcx" title="Permanent link">&para;</a></h3>
+<p>Freehand sketches can be stored as multi-frame DCX files (e.g., stroke sequences).</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL.DcxImagePlugin</span><span class="w"> </span><span class="kn">import</span> <span class="n">DcxImageFile</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Open a multi-frame sketch (e.g., step-by-step drawing)</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sketch_sequence.dcx&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">dcx_image</span> <span class="o">=</span> <span class="n">DcxImageFile</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="k">for</span> <span class="n">frame_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>  <span class="c1"># Read up to 10 strokes</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>            <span class="n">dcx_image</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">frame_idx</span><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>            <span class="n">frame</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">frombytes</span><span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="n">dcx_image</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dcx_image</span><span class="o">.</span><span class="n">data</span><span class="p">())</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>            <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">))</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="k">except</span> <span class="ne">EOFError</span><span class="p">:</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>            <span class="k">break</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span><span class="si">}</span><span class="s2"> sketch strokes&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="c1"># Fuse frames into a single visual prompt (e.g., cumulative attention map)</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="n">fused</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">frames</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="n">fused_img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">fused</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;L&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="n">fused_img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;fused_sketch_prompt.png&quot;</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
-<p>✅ <strong>Use Case</strong>: Symbolic text inputs are visually grounded using font geometry, enabling structure-aware latent encoding.</p>
+<p>✅ Use case: Temporal grounding of sketch inputs into a static latent visual prompt.</p>
 </blockquote>
 <hr />
-<h2 id="example-3-process-layout-primitives-from-eps-instructions">Example 3: Process Layout Primitives from EPS Instructions<a class="headerlink" href="#example-3-process-layout-primitives-from-eps-instructions" title="Permanent link">&para;</a></h2>
-<p>Parse vector-like symbolic instructions (e.g., UI layout specs) from EPS files using Ghostscript backend.</p>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.venv.lib.python3.</span><span class="mf">13.</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">.</span><span class="n">PIL</span><span class="o">.</span><span class="n">EpsImagePlugin</span> <span class="kn">import</span><span class="w"> </span><span class="nn">has_ghostscript</span><span class="o">,</span><span class="w"> </span><span class="nn">Ghostscript</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Check if Ghostscript is available for EPS rendering</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">has_ghostscript</span><span class="p">():</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Ghostscript not available. Cannot process EPS files.&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># Render EPS layout primitives to raster</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;layout_instructions.eps&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">eps_fp</span><span class="p">:</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">eps_data</span> <span class="o">=</span> <span class="n">eps_fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># Use Ghostscript to convert EPS to raster image</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="k">with</span> <span class="n">Ghostscript</span><span class="p">(</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="s2">&quot;ps2image&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="s2">&quot;-sDEVICE=png16m&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;output_layout.png&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="s2">&quot;-r300&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    <span class="s2">&quot;-dEPSCrop&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>    <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;save&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    <span class="s2">&quot;-f-&quot;</span><span class="p">,</span> <span class="s2">&quot;quit&quot;</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="p">)</span> <span class="k">as</span> <span class="n">gs</span><span class="p">:</span>
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">eps_data</span><span class="p">)</span>
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="c1"># Load the rendered layout into the visual latent pipeline</span>
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="n">layout_img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;output_layout.png&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="n">layout_img</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>  <span class="c1"># Finalize load into pixel buffer</span>
-</code></pre></div>
-<blockquote>
-<p>✅ <strong>Use Case</strong>: Symbolic layout instructions are rendered into pixel space, enabling geometry-aware fusion with sketches and text.</p>
-</blockquote>
+<h2 id="key-integration-points">Key Integration Points<a class="headerlink" href="#key-integration-points" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Modality</th>
+<th>Recommended Plugin</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Freehand Sketches</td>
+<td><code>DcxImagePlugin.DcxImageFile</code></td>
+<td><code>seek()</code>, <code>data()</code></td>
+</tr>
+<tr>
+<td>Handwritten Text</td>
+<td><code>BmpImagePlugin.BmpImageFile</code></td>
+<td><code>convert()</code>, <code>load()</code></td>
+</tr>
+<tr>
+<td>Layout Primitives</td>
+<td><code>DdsImagePlugin</code></td>
+<td>Check <code>dxgi_format</code>, decode DXT</td>
+</tr>
+<tr>
+<td>Symbolic Instructions</td>
+<td><code>BdfFontFile</code> + <code>FontFile</code></td>
+<td><code>compile()</code>, <code>to_imagefont()</code></td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Combine outputs from the above examples into a single canvas using <code>PIL.Image.new()</code> and <code>paste()</code>.</li>
-<li>Normalize all modalities to a fixed resolution and color space.</li>
-<li>Feed the fused visual prompt into your flow matching model for photorealistic image generation.</li>
-</ul>
-<p>FlowInOne enables <strong>modality-agnostic visual prompting</strong> by grounding all inputs in pixel space using real, accessible PIL components—no custom decoders or alignment losses required.</p>
+<ol>
+<li>Encode all modalities into fixed-size RGB images.</li>
+<li>Use a CNN or ViT encoder to project them into a shared latent space.</li>
+<li>Train a flow matching model on the fused visual latents to generate photorealistic outputs.</li>
+</ol>
+<p>FlowInOne enables <strong>modality-agnostic visual prompting</strong> by leveraging robust, low-level image handling through PIL plugins—ensuring semantic-preserving visual grounding and geometry-aware processing.</p>
 
 
 
