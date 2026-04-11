@@ -1,37 +1,45 @@
 ---
 title: FlowInOne
+description: Unified image-to-image generation via multimodal flow matching.
 ---
 
 # FlowInOne
-## Unified Multimodal Generation via Image-Flow Matching
-
-::: grid
-    ::: card
-        ## 🎨 Unified Visual Latent Space
-        Encode sketches, text, layouts, and symbolic instructions into a shared 2D visual latent representation—enabling seamless fusion of heterogeneous inputs without modality-specific decoders.
-    :::
-    ::: card
-        ## 🔄 Geometry-Aware Flow Matching
-        Leverage a single flow matching model that generates photorealistic images by denoising in the shared latent space, preserving spatial semantics and structural integrity.
-    :::
-    ::: card
-        ## 🧩 Semantic-Preserving Grounding
-        Automatically align diverse modalities through visual grounding, ensuring high-fidelity translation from abstract inputs to realistic outputs.
-    :::
-    ::: card
-        ## ⚙️ End-to-End Trainable
-        Train without explicit alignment losses or multi-stage pipelines—optimize directly for generation quality using flow-based objectives.
-    :::
+::: { .text-center }
+**Unified image-to-image generation via multimodal flow matching**  
+Seamlessly fuse sketches, text, layouts, and symbols into photorealistic images with a single flow model.
 :::
 
-## Get Started in Seconds
+<br>
 
-Install FlowInOne with pip:
+:::: {.grid .grid-3}
+::: {.card}
+### 🖌️ Multimodal Visual Encoding
+Encode freehand sketches, handwritten text, layout primitives, and symbolic instructions into a shared 2D visual latent space—preserving semantics and spatial structure without modality-specific decoders.
+:::
 
+::: {.card}
+### 🔄 Geometry-Aware Flow Matching
+Leverage geometry-preserving flow dynamics to generate high-fidelity images with accurate spatial alignment and structural coherence from fused visual prompts.
+:::
+
+::: {.card}
+### 🧩 Unified Latent Space
+Train a single denoisable latent space that supports diverse input modalities, eliminating the need for alignment losses or separate conditioning pathways.
+:::
+
+::: {.card}
+### 🚀 End-to-End Generation
+Generate photorealistic target images directly from multimodal visual prompts—no cascaded models, no post-processing, no compromise on quality.
+:::
+::::
+
+<br>
+
+::: {.grid .grid-2}
 ```bash
 pip install flowinone
 ```
-
-{ .md-button }
-
-[Get Started](getting-started.md){ .md-button .md-button--primary }
+:::
+::: { .text-center }
+[Get Started →](getting-started.md){ .md-button .md-button--primary }
+:::

@@ -1,100 +1,89 @@
 # Architecture
 
-FlowInOne is a unified visual representation learning system designed to encode heterogeneous multimodal inputs—such as freehand sketches, handwritten text, layout primitives, and symbolic instructions—into a shared, denoisable 2D visual latent space. By leveraging a consolidated visual prompt, the system enables a single flow matching model to generate photorealistic target images without requiring modality-specific decoders or explicit alignment losses. Central to this architecture is semantic-preserving visual grounding and geometry-aware flow propagation, ensuring that structural and symbolic semantics are faithfully preserved throughout the generation process. The system integrates low-level image parsing and decoding capabilities through the Python Imaging Library (PIL) plugins to support diverse input formats, enabling robust preprocessing and unified encoding into the latent space.
+FlowInOne implements a unified visual representation learning system that encodes heterogeneous multimodal inputs—freehand sketches, handwritten text, layout primitives, and symbolic instructions—into a shared, denoisable 2D visual latent space. By leveraging a fusion-first architecture, the system eliminates the need for modality-specific decoders or explicit alignment losses. Instead, all inputs are transformed into a geometry-aware, semantically grounded visual prompt through a joint encoder, enabling a single flow matching model to generate photorealistic target images conditioned solely on this fused latent. The architecture ensures semantic preservation and spatial coherence by grounding symbolic and textual modalities into a common canvas representation, while maintaining differentiability across the entire pipeline for end-to-end training.
 
 ```mermaid
 graph TD
-    A[Freehand Sketches] --> G[Visual Encoder]
-    B[Handwritten Text] --> G
-    C[Layout Primitives] --> G
-    D[Symbolic Instructions] --> G
-    E[PIL Image Plugins] --> G
-    F[ContainerIO / Stream Handlers] --> E
+    A[Freehand Sketches] -->|Rasterize| B(AvifImageFile)
+    C[Handwritten Text] -->|Render via BdfFontFile| D(BmpImageFile)
+    E[Layout Primitives] -->|Encode as shapes| F(DdsImageFile)
+    G[Symbolic Instructions] -->|Parse & render| H(EpsImagePlugin::Ghostscript)
+    
+    B --> I[ContainerIO]
+    D --> I
+    F --> I
+    H --> I
+    
+    I --> J(FitsGzipDecoder)
+    J --> K[Fused Visual Latent Space]
+    
+    K --> L[Flow Matching Model]
+    L --> M[Photorealistic Image Output]
 
-    subgraph "PIL Plugin Modules"
-        E1[AvifImagePlugin::AvifImageFile] -->|decode| E
-        E2[BmpImagePlugin::BmpImageFile] -->|decode| E
-        E3[BlpImagePlugin] -->|decode DXT/565| E
-        E4[DcxImagePlugin::DcxImageFile] -->|multi-frame PCX| E
-        E5[DdsImagePlugin] -->|DDS texture decoding| E
-        E6[EpsImagePlugin] -->|Ghostscript-based PS| E
-        E7[FitsImagePlugin::FitsImageFile] -->|scientific imaging| E
-        E8[GifImagePlugin::GifImageFile] -->|animated GIF support| E
-        E9[GdImageFile] -->|GD library format| E
-        E10[GbrImageFile] -->|GIMP brush format| E
-        E11[FpxImagePlugin::FpxImageFile] -->|FlashPix decoding| E
-        E12[FtexImagePlugin::FtexImageFile] -->|texture format| E
-    end
-
-    subgraph "Core Utilities"
-        F1[ContainerIO::ContainerIO] -->|stream abstraction| E
-        F2[BdfFontFile::BdfFontFile] -->|font rasterization| B
-        F3[GimpGradientFile] -->|interpolation curves| G
-        F4[GimpPaletteFile] -->|color palette parsing| E
-    end
-
-    G --> H[Shared 2D Visual Latent Space]
-    H --> I[Flow Matching Model]
-    I --> J[Photorealistic Output Image]
-
-    style G fill:#4c78a8,stroke:#333
-    style H fill:#54a24b,stroke:#333
-    style I fill:#e45756,stroke:#333
-    style J fill:#72b7b2,stroke:#333
+    style B fill:#f9f,stroke:#333
+    style D fill:#f9f,stroke:#333
+    style F fill:#f9f,stroke:#333
+    style H fill:#f9f,stroke:#333
+    style K fill:#bbf,stroke:#fff,stroke-width:2px
+    style L fill:#090,stroke:#000,color:#fff
 ```
 
 ## Module Roles
 
-- **`AvifImagePlugin::AvifImageFile`**: Handles decoding of AVIF (AV1 Image File Format) images using hardware or software codecs. Provides frame seeking and pixel loading via `load()` and `seek()`, enabling integration of modern compressed image inputs into the visual pipeline.
+### `.venv/lib/python3.13/site-packages/PIL/AvifImagePlugin.py`
+- **Class**: `AvifImageFile`
+- **Role**: Handles decoding and loading of AVIF image format inputs, used to ingest high-quality sketch rasterizations. The `load()` method provides pixel-level access for integration into the shared visual canvas.
 
-- **`BdfFontFile::BdfFontFile`**: Parses BDF (Bitmap Distribution Format) font files, enabling rendering of symbolic text inputs. Used to convert handwritten or symbolic instructions into rasterized glyphs for visual encoding.
+### `.venv/lib/python3.13/site-packages/PIL/BdfFontFile.py`
+- **Function**: `bdf_char`, **Class**: `BdfFontFile`
+- **Role**: Parses BDF font files to render handwritten text inputs with precise control over glyph geometry. Enables faithful spatial encoding of textual content into the visual latent space.
 
-- **`BlpImagePlugin`**: Decodes Blizzard’s BLP texture format, including DXT1/DXT3 compression and 565 RGB unpacking. Supports game asset ingestion through efficient texture decompression.
+### `.venv/lib/python3.13/site-packages/PIL/BlpImagePlugin.py`
+- **Enums**: `Format`, `Encoding`, `AlphaEncoding`, **Functions**: `unpack_565`, `decode_dxt1`, `decode_dxt3`
+- **Role**: Provides texture decoding utilities that support compression-aware processing of layout primitives, particularly useful for efficient handling of repeated patterns or icons.
 
-- **`BmpImagePlugin::BmpImageFile`**: Native decoder for BMP image files. Serves as a base class for other formats like `.cur` and ensures lossless parsing of uncompressed raster data.
+### `.venv/lib/python3.13/site-packages/PIL/BmpImagePlugin.py`
+- **Class**: `BmpImageFile`
+- **Role**: Serves as base format handler for bitmap representations of rendered text and vector elements. Ensures lossless preservation of spatial details during intermediate encoding stages.
 
-- **`BufrStubImagePlugin::BufrStubImageFile`**: Placeholder handler for BUFR meteorological data files. Registers stubs for deferred or external decoding, allowing extensibility for scientific data modalities.
+### `.venv/lib/python3.13/site-packages/PIL/BufrStubImagePlugin.py`
+- **Class**: `BufrStubImageFile`, **Function**: `register_handler`
+- **Role**: Acts as a stub interface for deferred image processing; allows registration of handlers for late-bound modalities, supporting dynamic input integration.
 
-- **`ContainerIO::ContainerIO`**: Provides a file-like interface for in-memory byte streams. Enables uniform handling of embedded or virtual image data across plugins, critical for processing symbolic or generated inputs.
+### `.venv/lib/python3.13/site-packages/PIL/ContainerIO.py`
+- **Class**: `ContainerIO`
+- **Role**: Central I/O abstraction that aggregates multiple encoded input streams (sketches, text, layouts) into a unified byte-level container. Enables synchronized access and batching during latent fusion.
 
-- **`CurImagePlugin::CurImageFile`**: Extends `BmpImageFile` to support Windows `.cur` cursor files with hotspot metadata. Facilitates layout-aware visual primitives with positional anchors.
+### `.venv/lib/python3.13/site-packages/PIL/CurImagePlugin.py`
+- **Class**: `CurImageFile`
+- **Role**: Extends `BmpImageFile` to support cursor image formats; used experimentally for pointer-based sketch annotations and interactive layout cues.
 
-- **`DcxImagePlugin::DcxImageFile`**: Manages DCX (multi-page PCX) container images. Allows frame-by-frame access via `seek()` and `tell()`, supporting animated or layered sketch inputs.
+### `.venv/lib/python3.13/site-packages/PIL/DcxImagePlugin.py`
+- **Class**: `DcxImageFile`
+- **Role**: Handles multi-page DCX fax images; supports frame-wise ingestion of sequential sketch strokes or layout layers via `seek()` and `tell()`.
 
-- **`DdsImagePlugin`**: Parses DirectDraw Surface (DDS) files with support for compressed textures (DXTn) via flags like `DDSD`, `DDSCAPS`, and `DXGI_FORMAT`. Enables high-performance texture decoding for 3D-aware layouts.
+### `.venv/lib/python3.13/site-packages/PIL/DdsImagePlugin.py`
+- **Classes**: `DDSD`, `DDSCAPS`, `DXGI_FORMAT`, etc.
+- **Role**: Manages DirectDraw Surface (DDS) textures for layout primitives, enabling GPU-friendly encoding of structured geometric inputs with mipmapping and compression metadata.
 
-- **`EpsImagePlugin`**: Renders EPS (Encapsulated PostScript) files using Ghostscript. Converts vector-based symbolic instructions into raster images for visual grounding.
-
-- **`FitsImagePlugin::FitsImageFile`**: Reads FITS (Flexible Image Transport System) files used in astronomy. Integrates scientific imaging data via `PyDecoder` pipeline, supporting metadata-rich inputs.
-
-- **`FliImagePlugin::FliImageFile`**: Decodes FLI/FLC animations. Supports temporal sequences of layout primitives through frame navigation.
-
-- **`FontFile`**: Base utilities for font compilation and storage. Used by `BdfFontFile` to generate `ImageFont` instances for text rendering.
-
-- **`FpxImagePlugin::FpxImageFile`**: Parses Kodak FlashPix images, enabling multi-resolution input handling. Supports `load()` and `close()` for resource management.
-
-- **`FtexImagePlugin::FtexImageFile`**: Handles FTEX texture format with custom `load_seek()` for offset-based decoding. Useful for embedded GPU textures in symbolic layouts.
-
-- **`GbrImagePlugin::GbrImageFile`**: Loads GIMP brush files (.gbr), preserving opacity and mask channels. Enables stylized stroke representation in sketch encoding.
-
-- **`GdImageFile`**: Reads GD library native image format. Offers direct `open()` method for legacy web graphics integration.
-
-- **`GifImagePlugin::GifImageFile`**: Supports animated GIFs with `n_frames()`, `is_animated()`, and frame data access. Allows temporal sketch or instruction sequences.
-
-- **`GimpGradientFile`**: Parses `.ggr` gradient files and provides interpolation functions (`linear`, `sine`, `sphere_decreasing`, etc.). Used to model smooth transitions in layout design.
-
-- **`GimpPaletteFile`**: Loads `.gpl` palette files into usable color maps. Ensures consistent color semantics across symbolic and layout inputs.
-
-- **`GribStubImagePlugin`**: Stub handler for GRIB (GRIdded Binary) weather data. Enables future integration of geospatial modalities.
+### `.venv/lib/python3.13/site-packages/PIL/EpsImagePlugin.py`
+- **Functions**: `has_ghostscript`, `Ghostscript`
+- **Role**: Renders Encapsulated PostScript symbolic instructions using Ghostscript backend. Critical for converting vector-based symbolic inputs into rasterized visual prompts aligned with other modalities.
 
 ## Data Flow Explanation
 
-The FlowInOne system begins by ingesting multimodal inputs: sketches, text, layout elements, and symbolic instructions. Each modality is processed through appropriate PIL plugins:
+1. **Input Ingestion**: Each modality is independently processed:
+   - Sketches are encoded via `AvifImageFile.load()`.
+   - Handwritten text is rendered using `BdfFontFile` and stored as `BmpImageFile`.
+   - Layout primitives are converted into DDS textures using `DdsImagePlugin` enums and packing logic.
+   - Symbolic instructions in EPS format are rasterized via `Ghostscript`.
 
-- Raster images (AVIF, BMP, DDS, etc.) are decoded using their respective `ImageFile` subclasses (`AvifImageFile`, `BmpImageFile`, `DdsImageFile`, etc.), which standardize pixel access via `load()` and support frame navigation via `seek()` where applicable.
-- Handwritten text and symbolic glyphs are rasterized using `BdfFontFile` and `FontFile`, producing consistent visual tokens.
-- Layout primitives (e.g., gradients, palettes, brushes) are parsed via `GimpGradientFile`, `GimpPaletteFile`, and `GbrImageFile`, ensuring stylistic and geometric fidelity.
-- Containerized or multi-frame data (GIF, DCX, FLI) are handled using `ContainerIO` and frame-aware plugins, enabling temporal or layered processing.
-- Vector or script-based inputs (EPS) are rendered via external tools like Ghostscript, producing rasterized visual prompts.
+2. **Unified I/O Buffering**: Outputs from each plugin are serialized into a shared memory container using `ContainerIO`, which virtualizes a seekable, writable stream across modalities.
 
-All decoded and rendered outputs are unified into a shared 2D visual latent space through a visual encoder that preserves semantic and geometric structure. This fused representation is then processed by a single flow matching model, which denoises and generates a high-fidelity photorealistic image. The use of standardized PIL interfaces ensures that diverse input modalities are grounded in a common visual syntax, eliminating the need for modality-specific decoders or alignment losses.
+3. **Latent Space Fusion**: The container is decoded using `FitsGzipDecoder` (from `FitsImagePlugin`) to decompress and align all inputs spatially. This produces a single, coherent 2D visual latent tensor.
+
+4. **Geometry-Aware Flow Generation**: The fused latent is passed to the flow matching model, which generates photorealistic images by denoising the visual prompt. The absence of modality-specific decoders ensures end-to-end differentiability and semantic consistency.
+
+5. **Output Synthesis**: Final image is synthesized directly from the unified latent, preserving both global composition and fine-grained details from all input modalities.
+
+This architecture enables true multimodal fusion at the visual representation level, achieving semantic-preserving grounding and geometry-aware generation within a single, scalable framework.

@@ -5,14 +5,14 @@ build-backend = "hatchling.build"
 [project]
 name = "flowinone"
 version = "0.1.0"
-description = "Unified multimodal generation via image-flow matching in a shared visual latent space"
+description = "Unified image-to-image generation via multimodal flow matching."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
 authors = [
     { name = "Andrew Young", email = "research@automate-capture.com" },
 ]
-keywords = ["multimodal generation", "flow matching", "visual representation", "latent space", "image generation"]
+keywords = ["multimodal generation", "flow matching", "visual representation", "image synthesis", "latent space"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",

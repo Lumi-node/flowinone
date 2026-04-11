@@ -1,6 +1,6 @@
 site_name: FlowInOne
 site_url: https://lumi-node.github.io/flowinone/
-site_description: "Unified multimodal generation via image-flow matching in a shared visual latent space"
+site_description: "Unified image-to-image generation via multimodal flow matching."
 site_author: Andrew Young
 repo_url: https://github.com/Lumi-node/flowinone
 repo_name: Lumi-node/flowinone
