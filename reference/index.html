@@ -1,0 +1,2479 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Unified multimodal generation via image-flow matching in a shared visual latent space">
+      
+      
+        <meta name="author" content="Andrew Young">
+      
+      
+        <link rel="canonical" href="https://lumi-node.github.io/flowinone/reference/">
+      
+      
+        <link rel="prev" href="../architecture/">
+      
+      
+        <link rel="next" href="../research/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>API Reference - FlowInOne</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#flowinone-api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="FlowInOne" class="md-header__button md-logo" aria-label="FlowInOne" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FlowInOne
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Lumi-node/flowinone" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Lumi-node/flowinone
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../research/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Research
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="FlowInOne" class="md-nav__button md-logo" aria-label="FlowInOne" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    FlowInOne
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Lumi-node/flowinone" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Lumi-node/flowinone
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilavifimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/AvifImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/AvifImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_codec_versioncodec_name-str-str-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_codec_version(codec_name: str) -&gt; str | None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-avifimagefileimagefileimagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class AvifImageFile(ImageFile.ImageFile)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="class AvifImageFile(ImageFile.ImageFile)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seekself-frame-int-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        seek(self, frame: int) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadself-imagecorepixelaccess-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load(self) -&gt; Image.core.PixelAccess | None
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilbdffontfilepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/BdfFontFile.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/BdfFontFile.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bdf_chardata-bytes-tupleint-int-int-int-bytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bdf_char(data: bytes) -&gt; tuple[int, int, int, int, bytes]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-bdffontfilefontfilefontfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class BdfFontFile(FontFile.FontFile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilblpimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/BlpImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/BlpImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-formatintenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class Format(IntEnum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-encodingintenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class Encoding(IntEnum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-alphaencodingintenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class AlphaEncoding(IntEnum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unpack_565i-int-tupleint-int-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unpack_565(i: int) -&gt; tuple[int, int, int]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decode_dxt1data-bytes-width-int-height-int-bytearray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        decode_dxt1(data: bytes, width: int, height: int) -&gt; bytearray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decode_dxt3data-bytes-tuplebytearray-bytearray-bytearray-bytearray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        decode_dxt3(data: bytes) -&gt; tuple[bytearray, bytearray, bytearray, bytearray]
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilbmpimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/BmpImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/BmpImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-bmpimagefileimagefileimagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class BmpImageFile(ImageFile.ImageFile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilbufrstubimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/BufrStubImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/BufrStubImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#register_handlerhandler-imagefilestubhandler-none-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        register_handler(handler: ImageFile.StubHandler | None) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-bufrstubimagefileimagefilestubimagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class BufrStubImageFile(ImageFile.StubImageFile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilcontaineriopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/ContainerIO.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/ContainerIO.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-containerioioanystr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class ContainerIO(IO[AnyStr])
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="class ContainerIO(IO[AnyStr])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#isattyself-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        isatty(self) -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seekableself-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        seekable(self) -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seekself-offset-int-mode-int-ioseek_set-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        seek(self, offset: int, mode: int = io.SEEK_SET) -&gt; int
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tellself-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tell(self) -&gt; int
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readableself-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        readable(self) -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readself-n-int-1-anystr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        read(self, n: int = -1) -&gt; AnyStr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readlineself-n-int-1-anystr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        readline(self, n: int = -1) -&gt; AnyStr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readlinesself-n-int-none-1-listanystr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        readlines(self, n: int | None = -1) -&gt; list[AnyStr]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writableself-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        writable(self) -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writeself-b-anystr-noreturn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write(self, b: AnyStr) -&gt; NoReturn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writelinesself-lines-iterableanystr-noreturn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        writelines(self, lines: Iterable[AnyStr]) -&gt; NoReturn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truncateself-size-int-none-none-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        truncate(self, size: int | None = None) -&gt; int
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filenoself-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fileno(self) -&gt; int
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flushself-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        flush(self) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilcurimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/CurImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/CurImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-curimagefilebmpimagepluginbmpimagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class CurImageFile(BmpImagePlugin.BmpImageFile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespildcximagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/DcxImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/DcxImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-dcximagefilepcximagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DcxImageFile(PcxImageFile)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="class DcxImageFile(PcxImageFile)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seekself-frame-int-none_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        seek(self, frame: int) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tellself-int_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tell(self) -&gt; int
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilddsimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/DdsImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/DdsImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-ddsdintflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DDSD(IntFlag)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-ddscapsintflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DDSCAPS(IntFlag)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-ddscaps2intflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DDSCAPS2(IntFlag)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-ddpfintflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DDPF(IntFlag)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-dxgi_formatintenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DXGI_FORMAT(IntEnum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilepsimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/EpsImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/EpsImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#has_ghostscript-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        has_ghostscript() -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ghostscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        `Ghostscript(
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilexiftagspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/ExifTags.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/ExifTags.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-baseintenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class Base(IntEnum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilfitsimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/FitsImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/FitsImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-fitsimagefileimagefileimagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class FitsImageFile(ImageFile.ImageFile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-fitsgzipdecoderimagefilepydecoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class FitsGzipDecoder(ImageFile.PyDecoder)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="class FitsGzipDecoder(ImageFile.PyDecoder)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decodeself-buffer-bytes-imagesupportsarrayinterface-tupleint-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        decode(self, buffer: bytes | Image.SupportsArrayInterface) -&gt; tuple[int, int]
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilavifimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/AvifImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/AvifImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_codec_versioncodec_name-str-str-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_codec_version(codec_name: str) -&gt; str | None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-avifimagefileimagefileimagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class AvifImageFile(ImageFile.ImageFile)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="class AvifImageFile(ImageFile.ImageFile)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seekself-frame-int-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        seek(self, frame: int) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadself-imagecorepixelaccess-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load(self) -&gt; Image.core.PixelAccess | None
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilbdffontfilepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/BdfFontFile.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/BdfFontFile.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bdf_chardata-bytes-tupleint-int-int-int-bytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bdf_char(data: bytes) -&gt; tuple[int, int, int, int, bytes]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-bdffontfilefontfilefontfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class BdfFontFile(FontFile.FontFile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilblpimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/BlpImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/BlpImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-formatintenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class Format(IntEnum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-encodingintenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class Encoding(IntEnum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-alphaencodingintenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class AlphaEncoding(IntEnum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unpack_565i-int-tupleint-int-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unpack_565(i: int) -&gt; tuple[int, int, int]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decode_dxt1data-bytes-width-int-height-int-bytearray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        decode_dxt1(data: bytes, width: int, height: int) -&gt; bytearray
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decode_dxt3data-bytes-tuplebytearray-bytearray-bytearray-bytearray" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        decode_dxt3(data: bytes) -&gt; tuple[bytearray, bytearray, bytearray, bytearray]
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilbmpimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/BmpImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/BmpImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-bmpimagefileimagefileimagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class BmpImageFile(ImageFile.ImageFile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilbufrstubimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/BufrStubImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/BufrStubImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#register_handlerhandler-imagefilestubhandler-none-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        register_handler(handler: ImageFile.StubHandler | None) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-bufrstubimagefileimagefilestubimagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class BufrStubImageFile(ImageFile.StubImageFile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilcontaineriopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/ContainerIO.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/ContainerIO.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-containerioioanystr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class ContainerIO(IO[AnyStr])
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="class ContainerIO(IO[AnyStr])">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#isattyself-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        isatty(self) -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seekableself-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        seekable(self) -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seekself-offset-int-mode-int-ioseek_set-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        seek(self, offset: int, mode: int = io.SEEK_SET) -&gt; int
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tellself-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tell(self) -&gt; int
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readableself-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        readable(self) -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readself-n-int-1-anystr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        read(self, n: int = -1) -&gt; AnyStr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readlineself-n-int-1-anystr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        readline(self, n: int = -1) -&gt; AnyStr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readlinesself-n-int-none-1-listanystr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        readlines(self, n: int | None = -1) -&gt; list[AnyStr]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writableself-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        writable(self) -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writeself-b-anystr-noreturn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write(self, b: AnyStr) -&gt; NoReturn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writelinesself-lines-iterableanystr-noreturn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        writelines(self, lines: Iterable[AnyStr]) -&gt; NoReturn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truncateself-size-int-none-none-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        truncate(self, size: int | None = None) -&gt; int
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filenoself-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fileno(self) -&gt; int
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flushself-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        flush(self) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilcurimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/CurImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/CurImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-curimagefilebmpimagepluginbmpimagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class CurImageFile(BmpImagePlugin.BmpImageFile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespildcximagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/DcxImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/DcxImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-dcximagefilepcximagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DcxImageFile(PcxImageFile)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="class DcxImageFile(PcxImageFile)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seekself-frame-int-none_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        seek(self, frame: int) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tellself-int_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tell(self) -&gt; int
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilddsimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/DdsImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/DdsImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-ddsdintflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DDSD(IntFlag)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-ddscapsintflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DDSCAPS(IntFlag)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-ddscaps2intflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DDSCAPS2(IntFlag)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-ddpfintflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DDPF(IntFlag)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-dxgi_formatintenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class DXGI_FORMAT(IntEnum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilepsimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/EpsImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/EpsImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#has_ghostscript-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        has_ghostscript() -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ghostscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        `Ghostscript(
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilexiftagspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/ExifTags.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/ExifTags.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-baseintenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class Base(IntEnum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venvlibpython313site-packagespilfitsimagepluginpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .venv/lib/python3.13/site-packages/PIL/FitsImagePlugin.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".venv/lib/python3.13/site-packages/PIL/FitsImagePlugin.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-fitsimagefileimagefileimagefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class FitsImageFile(ImageFile.ImageFile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-fitsgzipdecoderimagefilepydecoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        class FitsGzipDecoder(ImageFile.PyDecoder)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="class FitsGzipDecoder(ImageFile.PyDecoder)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decodeself-buffer-bytes-imagesupportsarrayinterface-tupleint-int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        decode(self, buffer: bytes | Image.SupportsArrayInterface) -&gt; tuple[int, int]
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="flowinone-api-reference">FlowInOne API Reference<a class="headerlink" href="#flowinone-api-reference" title="Permanent link">&para;</a></h1>
+<p>This document provides a reference for the actual API components available in the specified modules of the Pillow (PIL) library. These components are part of the underlying image processing stack used within FlowInOne, particularly for handling diverse image formats and data structures required for multimodal visual representation learning.</p>
+<hr />
+<h2 id="venvlibpython313site-packagespilavifimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/AvifImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilavifimagepluginpy" title="Permanent link">&para;</a></h2>
+<h3 id="get_codec_versioncodec_name-str-str-none"><code>get_codec_version(codec_name: str) -&gt; str | None</code><a class="headerlink" href="#get_codec_versioncodec_name-str-str-none" title="Permanent link">&para;</a></h3>
+<p>Returns the version string of the specified AVIF codec if available, otherwise <code>None</code>. Used to check codec support.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">version</span> <span class="o">=</span> <span class="n">get_codec_version</span><span class="p">(</span><span class="s2">&quot;libavif&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>  <span class="c1"># e.g., &quot;0.9.1&quot;</span>
+</code></pre></div></p>
+<h3 id="class-avifimagefileimagefileimagefile"><code>class AvifImageFile(ImageFile.ImageFile)</code><a class="headerlink" href="#class-avifimagefileimagefileimagefile" title="Permanent link">&para;</a></h3>
+<p>Represents an AVIF image file that can be opened and processed using PIL.</p>
+<h4 id="seekself-frame-int-none"><code>seek(self, frame: int) -&gt; None</code><a class="headerlink" href="#seekself-frame-int-none" title="Permanent link">&para;</a></h4>
+<p>Moves to the given frame number in a multi-frame AVIF file.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">image</span> <span class="o">=</span> <span class="n">AvifImageFile</span><span class="p">(</span><span class="s2">&quot;animation.avif&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">image</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Go to second frame</span>
+</code></pre></div></p>
+<h4 id="loadself-imagecorepixelaccess-none"><code>load(self) -&gt; Image.core.PixelAccess | None</code><a class="headerlink" href="#loadself-imagecorepixelaccess-none" title="Permanent link">&para;</a></h4>
+<p>Loads pixel data from the current frame into memory.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">pixels</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">pixels</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># Access first pixel</span>
+</code></pre></div></p>
+<hr />
+<h2 id="venvlibpython313site-packagespilbdffontfilepy"><code>.venv/lib/python3.13/site-packages/PIL/BdfFontFile.py</code><a class="headerlink" href="#venvlibpython313site-packagespilbdffontfilepy" title="Permanent link">&para;</a></h2>
+<h3 id="bdf_chardata-bytes-tupleint-int-int-int-bytes"><code>bdf_char(data: bytes) -&gt; tuple[int, int, int, int, bytes]</code><a class="headerlink" href="#bdf_chardata-bytes-tupleint-int-int-int-bytes" title="Permanent link">&para;</a></h3>
+<p>Parses a single BDF character definition from raw byte data and returns its metrics and bitmap.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">char_data</span> <span class="o">=</span> <span class="n">bdf_char</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;STARTCHAR space...ENDCHAR&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">char_data</span>
+</code></pre></div></p>
+<h3 id="class-bdffontfilefontfilefontfile"><code>class BdfFontFile(FontFile.FontFile)</code><a class="headerlink" href="#class-bdffontfilefontfilefontfile" title="Permanent link">&para;</a></h3>
+<p>Loads and represents a BDF (Bitmap Distribution Format) font for use in PIL.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;font.bdf&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">font</span> <span class="o">=</span> <span class="n">BdfFontFile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h2 id="venvlibpython313site-packagespilblpimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/BlpImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilblpimagepluginpy" title="Permanent link">&para;</a></h2>
+<h3 id="class-formatintenum"><code>class Format(IntEnum)</code><a class="headerlink" href="#class-formatintenum" title="Permanent link">&para;</a></h3>
+<p>Enumeration indicating the BLP file format version (BLP1 or BLP2).</p>
+<h3 id="class-encodingintenum"><code>class Encoding(IntEnum)</code><a class="headerlink" href="#class-encodingintenum" title="Permanent link">&para;</a></h3>
+<p>Specifies the pixel encoding type used in BLP files (e.g., JPEG, DXT).</p>
+<h3 id="class-alphaencodingintenum"><code>class AlphaEncoding(IntEnum)</code><a class="headerlink" href="#class-alphaencodingintenum" title="Permanent link">&para;</a></h3>
+<p>Indicates how alpha channel data is encoded in the BLP image.</p>
+<h3 id="unpack_565i-int-tupleint-int-int"><code>unpack_565(i: int) -&gt; tuple[int, int, int]</code><a class="headerlink" href="#unpack_565i-int-tupleint-int-int" title="Permanent link">&para;</a></h3>
+<p>Decodes a 16-bit RGB565 value into (R, G, B) components.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">unpack_565</span><span class="p">(</span><span class="mb">0b1111100000011111</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="decode_dxt1data-bytes-width-int-height-int-bytearray"><code>decode_dxt1(data: bytes, width: int, height: int) -&gt; bytearray</code><a class="headerlink" href="#decode_dxt1data-bytes-width-int-height-int-bytearray" title="Permanent link">&para;</a></h3>
+<p>Decodes DXT1-compressed texture data into raw pixel bytes.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">pixels</span> <span class="o">=</span> <span class="n">decode_dxt1</span><span class="p">(</span><span class="n">compressed_data</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="decode_dxt3data-bytes-tuplebytearray-bytearray-bytearray-bytearray"><code>decode_dxt3(data: bytes) -&gt; tuple[bytearray, bytearray, bytearray, bytearray]</code><a class="headerlink" href="#decode_dxt3data-bytes-tuplebytearray-bytearray-bytearray-bytearray" title="Permanent link">&para;</a></h3>
+<p>Decodes DXT3-compressed data into four component bytearrays (RGBA).</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">decode_dxt3</span><span class="p">(</span><span class="n">dxt3_data</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h2 id="venvlibpython313site-packagespilbmpimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/BmpImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilbmpimagepluginpy" title="Permanent link">&para;</a></h2>
+<h3 id="class-bmpimagefileimagefileimagefile"><code>class BmpImageFile(ImageFile.ImageFile)</code><a class="headerlink" href="#class-bmpimagefileimagefileimagefile" title="Permanent link">&para;</a></h3>
+<p>Handles BMP (Bitmap) image files for reading within PIL.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">image</span> <span class="o">=</span> <span class="n">BmpImageFile</span><span class="p">(</span><span class="s2">&quot;image.bmp&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</code></pre></div></p>
+<hr />
+<h2 id="venvlibpython313site-packagespilbufrstubimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/BufrStubImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilbufrstubimagepluginpy" title="Permanent link">&para;</a></h2>
+<h3 id="register_handlerhandler-imagefilestubhandler-none-none"><code>register_handler(handler: ImageFile.StubHandler | None) -&gt; None</code><a class="headerlink" href="#register_handlerhandler-imagefilestubhandler-none-none" title="Permanent link">&para;</a></h3>
+<p>Registers or unregisters a handler for BUFR stub images (used for format registration).</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">register_handler</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># Unregister current handler</span>
+</code></pre></div></p>
+<h3 id="class-bufrstubimagefileimagefilestubimagefile"><code>class BufrStubImageFile(ImageFile.StubImageFile)</code><a class="headerlink" href="#class-bufrstubimagefileimagefilestubimagefile" title="Permanent link">&para;</a></h3>
+<p>Placeholder class for BUFR (Binary Universal Form for the Representation of meteorological data) images.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">stub</span> <span class="o">=</span> <span class="n">BufrStubImageFile</span><span class="p">(</span><span class="s2">&quot;data.bufr&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h2 id="venvlibpython313site-packagespilcontaineriopy"><code>.venv/lib/python3.13/site-packages/PIL/ContainerIO.py</code><a class="headerlink" href="#venvlibpython313site-packagespilcontaineriopy" title="Permanent link">&para;</a></h2>
+<h3 id="class-containerioioanystr"><code>class ContainerIO(IO[AnyStr])</code><a class="headerlink" href="#class-containerioioanystr" title="Permanent link">&para;</a></h3>
+<p>A file-like object that wraps byte or string containers for sequential I/O operations.</p>
+<h4 id="isattyself-bool"><code>isatty(self) -&gt; bool</code><a class="headerlink" href="#isattyself-bool" title="Permanent link">&para;</a></h4>
+<p>Returns <code>True</code> if the stream is interactive (TTY), always <code>False</code> for ContainerIO.</p>
+<h4 id="seekableself-bool"><code>seekable(self) -&gt; bool</code><a class="headerlink" href="#seekableself-bool" title="Permanent link">&para;</a></h4>
+<p>Returns <code>True</code> if the stream supports random access.</p>
+<h4 id="seekself-offset-int-mode-int-ioseek_set-int"><code>seek(self, offset: int, mode: int = io.SEEK_SET) -&gt; int</code><a class="headerlink" href="#seekself-offset-int-mode-int-ioseek_set-int" title="Permanent link">&para;</a></h4>
+<p>Moves the file pointer to the specified position.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">container</span> <span class="o">=</span> <span class="n">ContainerIO</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">container</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</code></pre></div></p>
+<h4 id="tellself-int"><code>tell(self) -&gt; int</code><a class="headerlink" href="#tellself-int" title="Permanent link">&para;</a></h4>
+<p>Returns the current position of the file pointer.</p>
+<h4 id="readableself-bool"><code>readable(self) -&gt; bool</code><a class="headerlink" href="#readableself-bool" title="Permanent link">&para;</a></h4>
+<p>Returns <code>True</code> if the stream can be read.</p>
+<h4 id="readself-n-int-1-anystr"><code>read(self, n: int = -1) -&gt; AnyStr</code><a class="headerlink" href="#readself-n-int-1-anystr" title="Permanent link">&para;</a></h4>
+<p>Reads up to <code>n</code> bytes; if <code>n</code> is -1, reads all remaining data.</p>
+<h4 id="readlineself-n-int-1-anystr"><code>readline(self, n: int = -1) -&gt; AnyStr</code><a class="headerlink" href="#readlineself-n-int-1-anystr" title="Permanent link">&para;</a></h4>
+<p>Reads a single line, optionally limited to <code>n</code> bytes.</p>
+<h4 id="readlinesself-n-int-none-1-listanystr"><code>readlines(self, n: int | None = -1) -&gt; list[AnyStr]</code><a class="headerlink" href="#readlinesself-n-int-none-1-listanystr" title="Permanent link">&para;</a></h4>
+<p>Reads all lines into a list.</p>
+<h4 id="writableself-bool"><code>writable(self) -&gt; bool</code><a class="headerlink" href="#writableself-bool" title="Permanent link">&para;</a></h4>
+<p>Returns <code>True</code> if the stream supports writing.</p>
+<h4 id="writeself-b-anystr-noreturn"><code>write(self, b: AnyStr) -&gt; NoReturn</code><a class="headerlink" href="#writeself-b-anystr-noreturn" title="Permanent link">&para;</a></h4>
+<p>Raises an error — writing is not supported.</p>
+<h4 id="writelinesself-lines-iterableanystr-noreturn"><code>writelines(self, lines: Iterable[AnyStr]) -&gt; NoReturn</code><a class="headerlink" href="#writelinesself-lines-iterableanystr-noreturn" title="Permanent link">&para;</a></h4>
+<p>Raises an error — writelines is not supported.</p>
+<h4 id="truncateself-size-int-none-none-int"><code>truncate(self, size: int | None = None) -&gt; int</code><a class="headerlink" href="#truncateself-size-int-none-none-int" title="Permanent link">&para;</a></h4>
+<p>Raises an error — truncation is not supported.</p>
+<h4 id="filenoself-int"><code>fileno(self) -&gt; int</code><a class="headerlink" href="#filenoself-int" title="Permanent link">&para;</a></h4>
+<p>Raises <code>OSError</code> — no underlying file descriptor.</p>
+<h4 id="flushself-none"><code>flush(self) -&gt; None</code><a class="headerlink" href="#flushself-none" title="Permanent link">&para;</a></h4>
+<p>No-op; included for file interface compatibility.</p>
+<hr />
+<h2 id="venvlibpython313site-packagespilcurimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/CurImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilcurimagepluginpy" title="Permanent link">&para;</a></h2>
+<h3 id="class-curimagefilebmpimagepluginbmpimagefile"><code>class CurImageFile(BmpImagePlugin.BmpImageFile)</code><a class="headerlink" href="#class-curimagefilebmpimagepluginbmpimagefile" title="Permanent link">&para;</a></h3>
+<p>Represents a Windows CUR (cursor) image file, which includes hotspot metadata.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">cursor</span> <span class="o">=</span> <span class="n">CurImageFile</span><span class="p">(</span><span class="s2">&quot;cursor.cur&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">cursor</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h2 id="venvlibpython313site-packagespildcximagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/DcxImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespildcximagepluginpy" title="Permanent link">&para;</a></h2>
+<h3 id="class-dcximagefilepcximagefile"><code>class DcxImageFile(PcxImageFile)</code><a class="headerlink" href="#class-dcximagefilepcximagefile" title="Permanent link">&para;</a></h3>
+<p>Handles DCX (multi-page PCX) image files.</p>
+<h4 id="seekself-frame-int-none_1"><code>seek(self, frame: int) -&gt; None</code><a class="headerlink" href="#seekself-frame-int-none_1" title="Permanent link">&para;</a></h4>
+<p>Selects the given frame (page) in the DCX file.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">dcx</span> <span class="o">=</span> <span class="n">DcxImageFile</span><span class="p">(</span><span class="s2">&quot;document.dcx&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">dcx</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Load third page</span>
+</code></pre></div></p>
+<h4 id="tellself-int_1"><code>tell(self) -&gt; int</code><a class="headerlink" href="#tellself-int_1" title="Permanent link">&para;</a></h4>
+<p>Returns the index of the current frame.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">current_page</span> <span class="o">=</span> <span class="n">dcx</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+</code></pre></div></p>
+<hr />
+<h2 id="venvlibpython313site-packagespilddsimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/DdsImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilddsimagepluginpy" title="Permanent link">&para;</a></h2>
+<h3 id="class-ddsdintflag"><code>class DDSD(IntFlag)</code><a class="headerlink" href="#class-ddsdintflag" title="Permanent link">&para;</a></h3>
+<p>Flags describing surface capabilities in DDS files (e.g., texture, cube map).</p>
+<h3 id="class-ddscapsintflag"><code>class DDSCAPS(IntFlag)</code><a class="headerlink" href="#class-ddscapsintflag" title="Permanent link">&para;</a></h3>
+<p>Legacy DirectDraw surface capabilities.</p>
+<h3 id="class-ddscaps2intflag"><code>class DDSCAPS2(IntFlag)</code><a class="headerlink" href="#class-ddscaps2intflag" title="Permanent link">&para;</a></h3>
+<p>Extended DirectDraw surface capabilities (e.g., volume, cube maps).</p>
+<h3 id="class-ddpfintflag"><code>class DDPF(IntFlag)</code><a class="headerlink" href="#class-ddpfintflag" title="Permanent link">&para;</a></h3>
+<p>Describes pixel format flags in DDS headers.</p>
+<h3 id="class-dxgi_formatintenum"><code>class DXGI_FORMAT(IntEnum)</code><a class="headerlink" href="#class-dxgi_formatintenum" title="Permanent link">&para;</a></h3>
+<p>Enumerates DXGI (DirectX Graphics Infrastructure) texture formats used in DDS.</p>
+<hr />
+<h2 id="venvlibpython313site-packagespilepsimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/EpsImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilepsimagepluginpy" title="Permanent link">&para;</a></h2>
+<h3 id="has_ghostscript-bool"><code>has_ghostscript() -&gt; bool</code><a class="headerlink" href="#has_ghostscript-bool" title="Permanent link">&para;</a></h3>
+<p>Checks whether Ghostscript is available on the system for EPS rendering.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">if</span> <span class="n">has_ghostscript</span><span class="p">():</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EPS support is enabled&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="ghostscript">`Ghostscript(<a class="headerlink" href="#ghostscript" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code>command: str,
+args: list[str],
+env: dict[str, str] | None = None
+</code></pre></div>
+<p>) -&gt; int`
+Executes a Ghostscript command with the given arguments and environment.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">return_code</span> <span class="o">=</span> <span class="n">Ghostscript</span><span class="p">(</span><span class="s2">&quot;gs&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;-sDEVICE=png16m&quot;</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;out.png&quot;</span><span class="p">,</span> <span class="s2">&quot;input.eps&quot;</span><span class="p">])</span>
+</code></pre></div></p>
+<hr />
+<h2 id="venvlibpython313site-packagespilexiftagspy"><code>.venv/lib/python3.13/site-packages/PIL/ExifTags.py</code><a class="headerlink" href="#venvlibpython313site-packagespilexiftagspy" title="Permanent link">&para;</a></h2>
+<h3 id="class-baseintenum"><code>class Base(IntEnum)</code><a class="headerlink" href="#class-baseintenum" title="Permanent link">&para;</a></h3>
+<p>Base class for EXIF tag enumerations; not instantiated directly.</p>
+<hr />
+<h2 id="venvlibpython313site-packagespilfitsimagepluginpy"><code>.venv/lib/python3.13/site-packages/PIL/FitsImagePlugin.py</code><a class="headerlink" href="#venvlibpython313site-packagespilfitsimagepluginpy" title="Permanent link">&para;</a></h2>
+<h3 id="class-fitsimagefileimagefileimagefile"><code>class FitsImageFile(ImageFile.ImageFile)</code><a class="headerlink" href="#class-fitsimagefileimagefileimagefile" title="Permanent link">&para;</a></h3>
+<p>Handles FITS (Flexible Image Transport System) astronomical image files.</p>
+<p><strong>Example:</strong>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">fits_image</span> <span class="o">=</span> <span class="n">FitsImageFile</span><span class="p">(</span><span class="s2">&quot;sky.fits&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="class-fitsgzipdecoderimagefilepydecoder"><code>class FitsGzipDecoder(ImageFile.PyDecoder)</code><a class="headerlink" href="#class-fitsgzipdecoderimagefilepydecoder" title="Permanent link">&para;</a></h3>
+<h4 id="decodeself-buffer-bytes-imagesupportsarrayinterface-tupleint-int"><code>decode(self, buffer: bytes | Image.SupportsArrayInterface) -&gt; tuple[int, int]</code><a class="headerlink" href="#decodeself-buffer-bytes-imagesupportsarrayinterface-tupleint-int" title="Permanent link">&para;</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Architecture">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Architecture
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../research/" class="md-footer__link md-footer__link--next" aria-label="Next: Research">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Research
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Andrew Young — MIT License
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Lumi-node/flowinone" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
